@@ -1,12 +1,11 @@
-import java.util.ArrayList;
 class Solution {
     public int[] solution(int start_num, int end_num) {
-       ArrayList<Integer> list = new ArrayList<>();
-        
-        for(int i = start_num; i<= end_num; i++){
-            list.add(i);
+        int a = (end_num-start_num)+1;
+        int[] result = new int[a];
+
+        for(int i = 0; i< a; i++){
+            result[i] = start_num + i;
         }
-        
-        return list.stream().mapToInt(i -> i).toArray();
+           return result;
     }
 }

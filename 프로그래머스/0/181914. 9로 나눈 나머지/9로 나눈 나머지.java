@@ -1,13 +1,12 @@
 class Solution {
     public int solution(String number) {
-        int sum = 0;
-        
-        for ( int=i;int<number.length;i++){
-            
-            sum += number.charAt(i) - '0';
+     
+        int result = 0;
+        for(int j = 0; j < number.length(); j++){
+            char c = number.charAt(j);
+            int d = Character.getNumericValue(c);
+            result += d;
         }
-        
-        return sum % 9;
-        }
+        return result % 9; 
     }
 }

@@ -1,0 +1,140 @@
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+
+class Solution
+{
+	public static void main(String args[]) throws Exception
+	{
+
+		Scanner sc = new Scanner(System.in);
+		int T;
+		T=sc.nextInt();
+
+		for(int test_case = 1; test_case <= T; test_case++)
+		{
+			int H = sc.nextInt();
+            int W = sc.nextInt();
+            
+            char[][] map = new char[H][W];
+            
+            for( int i = 0; i < H; i++) {
+            	String line = sc.next(); // 한 줄 통째로 읽기
+                map[i] = line.toCharArray(); // 글자로 쪼개서 i번째 줄에 넣기
+            }
+ 
+            int r = 0; 
+            int c = 0;
+            
+            for(int i = 0; i < H; i++) {
+                for(int j = 0; j < W; j++){
+                    if(map[i][j] == '^' || map[i][j] == 'v' || map[i][j] == '<' || map[i][j] == '>'){
+                        r = i;
+                        c = j;
+                    }
+                }
+            }
+            
+  			int N = sc.nextInt();
+            String cmd = sc.next(); 
+                    
+            for (int i = 0; i < N; i++) {
+            	char op = cmd.charAt(i); // i번째 명령
+                
+                if ( op == 'U' ) {
+                    map[r][c] = '^';          // 방향 바꾸기 (무조건)
+                    
+                	if( r-1 >= 0 && map[r-1][c] == '.') {
+                    	map[r][c] = '.';  // 1. 원래 있던 칸을 평지로
+                        r = r - 1;  // 2. 전차 좌표를 위로 한 칸
+                        map[r][c] = '^'; // 3. 새 위치에 전차 그리기
+                    }
+                }
+                
+                if( op == 'D' ) {
+                 	map[r][c] = 'v';   
+                    
+                    if( r + 1 < H && map[r+1][c] == '.') {
+                    	map[r][c] = '.';
+                        r = r + 1;
+                        map[r][c] = 'v';
+                    }
+                }
+                
+                  if( op == 'L' ) {
+                 	map[r][c] = '<';   
+                    
+                    if( c - 1 >= 0 && map[r][c-1] == '.') {
+                    	map[r][c] = '.';
+                        c = c - 1;
+                        map[r][c] = '<';
+                    }
+                }
+                
+                if( op == 'R' ) {
+                 	map[r][c] = '>';   
+                    
+                    if( c + 1 < W && map[r][c+1] == '.') {
+                    	map[r][c] = '.';
+                        c = c + 1;
+                        map[r][c] = '>';
+                    }
+                }
+                
+                
+               	if (op == 'S') {
+					if (map[r][c] == '^') {                     // 위로 쏘기
+						for (int k = r - 1; k >= 0; k--) {
+							if (map[k][c] == '*') {             // 벽돌: 부수고 끝
+								map[k][c] = '.';
+								break;
+							}
+							if (map[k][c] == '#') {             // 강철: 그냥 끝
+								break;
+							}
+						}
+					}
+					else if (map[r][c] == 'v') {                // 아래로 쏘기
+						for (int k = r + 1; k < H; k++) {
+							if (map[k][c] == '*') {
+								map[k][c] = '.';
+								break;
+							}
+							if (map[k][c] == '#') {
+								break;
+							}
+						}
+					}
+					else if (map[r][c] == '<') {                // 왼쪽으로 쏘기
+						for (int k = c - 1; k >= 0; k--) {
+							if (map[r][k] == '*') {
+								map[r][k] = '.';
+								break;
+							}
+							if (map[r][k] == '#') {
+								break;
+							}
+						}
+					}
+					else if (map[r][c] == '>') {                // 오른쪽으로 쏘기
+						for (int k = c + 1; k < W; k++) {
+							if (map[r][k] == '*') {
+								map[r][k] = '.';
+								break;
+							}
+							if (map[r][k] == '#') {
+								break;
+							}
+						}
+					}
+				}
+			}
+
+			// 출력
+			System.out.print("#" + test_case + " ");
+			for (int i = 0; i < H; i++) {
+				System.out.println(new String(map[i]));
+			}           
+		}
+	}
+}

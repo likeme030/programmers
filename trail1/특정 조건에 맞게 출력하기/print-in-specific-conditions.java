@@ -17,9 +17,6 @@ public class Main {
             }
             li.add(a);
         }
-
-        int idx = 0;
-        int[] result = new int[li.size()];
         for(int x : li){
            System.out.print(x + " ");
             

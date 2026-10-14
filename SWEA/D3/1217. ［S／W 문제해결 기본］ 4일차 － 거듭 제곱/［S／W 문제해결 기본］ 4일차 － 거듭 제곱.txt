@@ -1,0 +1,35 @@
+
+import java.util.Scanner;
+
+class Solution
+{
+    
+    static int power(int n , int m) {
+        int cnt = 0;
+        
+        if(m == 0){
+            return 1;
+        }else{
+            return n * power(n, m-1);
+        }
+    }
+        
+	public static void main(String args[]) throws Exception
+	{
+	
+		Scanner sc = new Scanner(System.in);
+        
+		for(int test_case = 1; test_case <=10; test_case++)
+		{
+
+            int num = sc.nextInt();
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            
+            // 받은 값을 power에게 넘겨주기 
+            int result = power(n, m);
+            System.out.println("#" + test_case + " " + result);
+
+		}
+	}
+}
